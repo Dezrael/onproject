@@ -1,16 +1,25 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { EventsPage } from '../pages/EventsPage';
 import { LoginPage } from '../pages/LoginPage';
 
-const router = createBrowserRouter([
+export const publicRouter = createBrowserRouter([
+    {
+        path: '/login',
+        element: <LoginPage />,
+    },
+    {
+        path: '/',
+        element: <Navigate to="/login" replace />,
+    },
+]);
+
+export const privateRouter = createBrowserRouter([
     {
         path: '/',
         element: <EventsPage />,
     },
     {
         path: '/login',
-        element: <LoginPage />,
+        element: <Navigate to="/" replace />,
     },
 ]);
-
-export default router;

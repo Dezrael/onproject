@@ -1,6 +1,7 @@
 import { IUser } from '../../models/IUser';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { userLogin } from './ActionCreators';
+import { simLogin, simLogout } from '../../utils/authSimulation';
 
 interface AuthSlice {
     isAuth: boolean;
@@ -19,12 +20,25 @@ const initialState: AuthSlice = {
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        setUser(state, action: PayloadAction<string>) {
+            state.isAuth = true;
+            state.user.username = action.payload;
+        },
+        logout(state) {
+            state.isAuth = false;
+            state.user = {} as IUser;
+            simLogout(); //backend simulation
+        },
+    },
     extraReducers: {
         [userLogin.fulfilled.type]: (state, action: PayloadAction<IUser>) => {
             state.isLoading = false;
             state.error = '';
             state.user = action.payload;
+            state.isAuth = true;
+
+            simLogin(action.payload.username); //backend simulation
         },
         [userLogin.pending.type]: (state) => {
             state.isLoading = true;
@@ -32,8 +46,11 @@ export const authSlice = createSlice({
         [userLogin.rejected.type]: (state, action: PayloadAction<string>) => {
             state.isLoading = false;
             state.error = action.payload;
+            state.isAuth = false;
         },
     },
 });
+
+export const { setUser, logout } = authSlice.actions;
 
 export default authSlice.reducer;

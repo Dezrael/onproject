@@ -1,19 +1,26 @@
-import { Layout } from 'antd';
-import { Provider } from 'react-redux';
-import { RouterProvider } from 'react-router-dom';
-import './App.css';
-import router from './router';
-import { setupStore } from './store';
+import { useEffect } from 'react';
+import { Divider, Layout } from 'antd';
 
-const store = setupStore();
+import { AppRouter } from './components/AppRouter';
+import { logout, setUser } from './store/reducers/AuthSlice';
+
+import './App.css';
+import { useAppSelector } from './hooks/useAppSelector';
+import { useAppDispatch } from './hooks/useAppDispatch';
 
 function App() {
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (localStorage.getItem('isAuth')) {
+            dispatch(setUser(localStorage.getItem('username') || ''));
+        }
+    }, []);
+
     return (
-        <Provider store={store}>
-            <Layout>
-                <RouterProvider router={router}></RouterProvider>
-            </Layout>
-        </Provider>
+        <Layout>
+            <AppRouter />
+        </Layout>
     );
 }
 
