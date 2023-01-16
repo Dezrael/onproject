@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
-import { Divider, Layout } from 'antd';
+import { Layout } from 'antd';
 
 import { AppRouter } from './components/AppRouter';
-import { logout, setUser } from './store/reducers/AuthSlice';
+import { setUser } from './store/reducers/AuthSlice';
 
 import './App.css';
-import { useAppSelector } from './hooks/useAppSelector';
 import { useAppDispatch } from './hooks/useAppDispatch';
 
 function App() {
@@ -15,7 +14,7 @@ function App() {
         if (localStorage.getItem('isAuth')) {
             dispatch(setUser(localStorage.getItem('username') || ''));
         }
-    }, []);
+    }, [dispatch]);
 
     return (
         <Layout>
