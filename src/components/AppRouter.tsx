@@ -1,14 +1,16 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppSelector';
-import { publicRouter, privateRouter } from '../router';
+import { createRoutes } from '../router';
 
 export const AppRouter = () => {
     const { isAuth } = useAppSelector((state) => state.authReducer);
 
-    return isAuth ? (
-        <RouterProvider router={privateRouter}></RouterProvider>
-    ) : (
-        <RouterProvider router={publicRouter}></RouterProvider>
-    );
+    let router = createRoutes(isAuth);
+
+    useEffect(() => {
+        router = createRoutes(isAuth);
+    }, [isAuth]);
+
+    return <RouterProvider router={router}></RouterProvider>;
 };

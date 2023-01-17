@@ -6,6 +6,7 @@ import { setUser } from './store/reducers/AuthSlice';
 
 import './App.css';
 import { useAppDispatch } from './hooks/useAppDispatch';
+import { NavBar } from './components/NavBar';
 
 function App() {
     const dispatch = useAppDispatch();
@@ -18,6 +19,9 @@ function App() {
 
     return (
         <Layout>
+            <Layout.Header>
+                <NavBar />
+            </Layout.Header>
             <AppRouter />
         </Layout>
     );

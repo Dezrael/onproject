@@ -1,16 +1,16 @@
 import { IUser } from '../../models/IUser';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { userLogin } from './ActionCreators';
-import { simLogin, simLogout } from '../../utils/authSimulation';
+import { simLogin, simLogout } from '../../utils/backSimulation';
 
-interface AuthSlice {
+interface IAuthSlice {
     isAuth: boolean;
     isLoading: boolean;
     user: IUser;
     error: string;
 }
 
-const initialState: AuthSlice = {
+const initialState: IAuthSlice = {
     isAuth: false,
     isLoading: false,
     user: {} as IUser,
