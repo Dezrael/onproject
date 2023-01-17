@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const GanntPage = () => {
+export const GanttPage = () => {
     return <div>GanntPage</div>;
 };
