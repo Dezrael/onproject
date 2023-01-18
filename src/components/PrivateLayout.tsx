@@ -5,11 +5,6 @@ export const PrivateLayout = () => {
     const { isAuth } = useAppSelector((state) => state.authReducer);
     const outlet = useOutlet();
 
-    const location = useLocation();
-
-    console.log('Авторизация: ' + isAuth);
-    console.log('Слой приватный: ' + location.pathname);
-
     if (!isAuth) {
         return <Navigate to="/login" />;
     }
